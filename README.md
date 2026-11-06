@@ -1,7 +1,11 @@
 <!-- SPDX-FileCopyrightText: 2026 Nubian Ibex and IbexWall contributors -->
-<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later
 
 # ibexwall-docs
+
+[![CI](https://github.com/nubian-ibex/ibexwall-docs/actions/workflows/ci.yml/badge.svg)](https://github.com/nubian-ibex/ibexwall-docs/actions/workflows/ci.yml)
+[![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
 
 The IbexWall documentation, <https://docs.ibexwall.com>: getting started, the
 concepts (plans and rollback, plugins, privacy, the security model), the guides
