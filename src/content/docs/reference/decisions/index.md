@@ -1,0 +1,53 @@
+---
+title: "Decisions"
+description: "Architecture decision records."
+sidebar:
+  order: 10
+---
+
+The architecture decision records of IbexWall: the choice, the options and the reasons.
+
+- [ADR-0001: Product and organization (D-001)](/reference/decisions/0001-product-and-org/)
+- [ADR-0002: Canonical naming and spelling (D-002)](/reference/decisions/0002-naming/)
+- [ADR-0003: Desktop first; Fedora, Ubuntu, Debian, Arch (D-003)](/reference/decisions/0003-desktop-first-distros/)
+- [ADR-0004: Rust for the whole client, eBPF with aya (D-004)](/reference/decisions/0004-rust-and-aya/)
+- [ADR-0005: varlink over unix socket with per-method polkit (D-005)](/reference/decisions/0005-varlink-polkit/)
+- [ADR-0006: Plugins as separate sandboxed processes (D-006)](/reference/decisions/0006-plugins-as-separate-processes/)
+- [ADR-0007: Plugins propose, the core executes (D-007)](/reference/decisions/0007-plugins-propose-core-executes/)
+- [ADR-0008: Own nftables table; inbound via adapters (D-008)](/reference/decisions/0008-own-nft-table-and-adapters/)
+- [ADR-0009: Local DNS resolver behind native backends (D-009)](/reference/decisions/0009-local-dns-resolver/)
+- [ADR-0010: Change engine with snapshots and timed confirmation (D-010)](/reference/decisions/0010-change-engine/)
+- [ADR-0011: Monorepo for the open source client (D-011)](/reference/decisions/0011-monorepo/)
+- [ADR-0012: Client licensing: GPL-3.0-or-later, DCO, no CLA (D-012)](/reference/decisions/0012-licensing-dco/)
+- [ADR-0013: Permissive proto/sdk; dual-licensed eBPF (D-013)](/reference/decisions/0013-permissive-proto-sdk-dual-ebpf/)
+- [ADR-0014: Managed mode via open contracts (D-014)](/reference/decisions/0014-managed-mode-open-contracts/)
+- [ADR-0015: MCP assistant as an isolated, powerless client (D-015)](/reference/decisions/0015-mcp-server-isolated/)
+- [ADR-0016: Protections never disabled by billing state (D-016)](/reference/decisions/0016-protections-never-disabled/)
+- [ADR-0017: Website and docs on Cloudflare (D-017)](/reference/decisions/0017-cloudflare-hosting/)
+- [ADR-0018: FOSS first, managed later (D-018)](/reference/decisions/0018-foss-first-launch/)
+- [ADR-0019: Single web UI in a Tauri shell (D-019)](/reference/decisions/0019-single-web-ui-tauri/)
+- [ADR-0020: i18n with Fluent, en source, pt-BR mandatory (D-020)](/reference/decisions/0020-i18n-fluent/)
+- [ADR-0021: Reverse-DNS prefix com.ibexwall (D-021)](/reference/decisions/0021-reverse-dns-prefix/)
+- [ADR-0022: Confidential business material stays out (D-022)](/reference/decisions/0022-confidential-business-docs/)
+- [ADR-0023: CI runs no VM jobs at F0 (deviation)](/reference/decisions/0023-ci-without-nested-kvm/)
+- [ADR-0024: In-repo varlink framing (spike S1-a)](/reference/decisions/0024-varlink-framing/)
+- [ADR-0025: Caller identity and polkit subject (spike S1-b)](/reference/decisions/0025-caller-identity-polkit/)
+- [ADR-0026: Transient-unit executor (spike S1-c)](/reference/decisions/0026-transient-unit-executor/)
+- [ADR-0027: ibexwall-varlink is Apache-2.0 OR MIT](/reference/decisions/0027-permissive-varlink-crate/)
+- [ADR-0028: ibexwall-dns is a forwarding stub on hickory 0.26](/reference/decisions/0028-dns-forwarding-stub/)
+- [ADR-0029: DNS backend adapters live in the net.dns plugin](/reference/decisions/0029-dns-backend-adapters-in-the-plugin/)
+- [ADR-0030: Captive portals are detected and announced, never auto-relieved](/reference/decisions/0030-captive-portal-handling/)
+- [ADR-0031: the connect monitor uses cgroup/connect hooks on aya](/reference/decisions/0031-connect-monitor-ebpf/)
+- [ADR-0032: the connection monitor is its own hardened unit](/reference/decisions/0032-monitor-as-supervised-child/)
+- [ADR-0033: the Flatpak network block writes the override file](/reference/decisions/0033-flatpak-network-block/)
+- [ADR-0034: firewalld and ufw are driven by fixed argv](/reference/decisions/0034-firewall-adapters-by-argv/)
+- [ADR-0035: Ask mode holds the first packet in NFQUEUE](/reference/decisions/0035-ask-mode-nfqueue/)
+- [ADR-0036: Ask is driven by the core, and its nft chains are derived state](/reference/decisions/0036-ask-in-the-core/)
+- [ADR-0037: Without eBPF there is no per-app enforcement, and the UI says so](/reference/decisions/0037-no-ebpf-means-no-enforcement/)
+- [ADR-0038: Plugin ids use hyphens](/reference/decisions/0038-plugin-ids-use-hyphens/)
+- [ADR-0039: The MCP stdio protocol is implemented in `ibexwall-mcp`](/reference/decisions/0039-mcp-protocol-implemented-here/)
+- [ADR-0040: OpenVPN profiles are imported as a documented subset](/reference/decisions/0040-openvpn-import-deferred/)
+- [ADR-0041: Official plugins ship as one multicall binary](/reference/decisions/0041-official-plugins-as-one-multicall-binary/)
+- [ADR-0042: Nothing leaves the machine in the clear](/reference/decisions/0042-nothing-leaves-the-machine-in-the-clear/)
+- [ADR-0043: Plugins start by socket activation, in a unit of their own](/reference/decisions/0043-plugins-start-by-socket-activation/)
+- [ADR-0044: What the SELinux and AppArmor policies confine](/reference/decisions/0044-mandatory-access-control-scope/)

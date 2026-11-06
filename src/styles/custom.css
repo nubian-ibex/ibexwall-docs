@@ -1,0 +1,18 @@
+/* SPDX-FileCopyrightText: 2026 Nubian Ibex and IbexWall contributors */
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+
+:root {
+  --sl-font: 'IBM Plex Sans', system-ui, sans-serif;
+  --sl-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --sl-color-accent-low: #e5f2eb;
+  --sl-color-accent: #1f7a55;
+  --sl-color-accent-high: #14573d;
+}
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #16302a;
+  --sl-color-accent: #3dae7e;
+  --sl-color-accent-high: #6bcb9f;
+}

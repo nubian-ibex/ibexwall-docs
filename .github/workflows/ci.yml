@@ -1,0 +1,48 @@
+# The documentation builds, and the reference generated from the app repository
+# is what is committed.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: docs
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: nubian-ibex/ibexwall
+          path: ibexwall
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          package_json_file: docs/package.json
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: docs/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: docs
+      - name: the command line reference needs a built ibexctl
+        run: cargo build --release -p ibexwall-cli
+        working-directory: ibexwall
+      - run: pnpm exec astro check
+        working-directory: docs
+      - run: pnpm build
+        working-directory: docs
+      - name: the generated reference must be what is committed
+        run: |
+          git add src/content/docs/reference
+          git diff --cached --exit-code || { echo "run 'pnpm reference' and commit the result"; exit 1; }
+        working-directory: docs

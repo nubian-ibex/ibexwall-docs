@@ -1,0 +1,30 @@
+{
+  "name": "ibexwall-docs",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "reference": "node scripts/generate-reference.mjs",
+    "dev": "astro dev",
+    "build": "node scripts/generate-reference.mjs && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "node --test scripts/"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/starlight": "^0.36.3",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "astro": "^5.18.2",
+    "sharp": "^0.35.5",
+    "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

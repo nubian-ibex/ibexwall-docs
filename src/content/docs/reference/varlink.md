@@ -1,0 +1,119 @@
+---
+title: "Varlink interfaces"
+description: "The interfaces of the daemon, the plugins and the policy."
+sidebar:
+  order: 3
+---
+
+The daemon speaks varlink on `/run/ibexwall/core.sock`. These are the interfaces, as exported by `cargo xtask schemas`.
+
+## com.ibexwall.Core
+
+```text
+interface com.ibexwall.Core
+
+type Severity (info, low, medium, high, critical)
+type Info (api: int, degraded: []string, distro: string, features: []string, kernel: string, version: string)
+type ProtectionStatus (detail: ?string, plugin: string, state: string, summary_key: string)
+type Posture (generated_at: string, open_findings: int, protections: []ProtectionStatus, results: ?[]CheckResult, score: ?int)
+type Reference (framework: string, id: string, url: ?string)
+type Remediation (may_affect_keys: ?[]string, plan_template: ?string)
+type FindingStatus (open, accepted_risk, resolved)
+type Finding (args: ?[string]string, detected_at: string, id: string, plugin: string, references: ?[]Reference, remediation: ?Remediation, severity: Severity, status: FindingStatus, summary_key: string, title_key: string)
+type PluginOrigin (official, community, local)
+type PluginInfo (compatible: bool, conflicts: []string, enabled: bool, id: string, kinds: []string, locked: bool, name: string, names: ?[string]string, origin: PluginOrigin, status: string, version: string)
+type RiskFlag (network, auth, boot, reboot_to_revert, irreversible)
+type Reversible (immediate, reboot, irreversible)
+type OpPreview (diff: ?string, op: string, risk: ?[]RiskFlag, target: string)
+type Plan (expires_at: string, id: string, may_affect_keys: ?[]string, ops: []OpPreview, plugin: string, requires_confirm: bool, reversible: Reversible, risk: ?[]RiskFlag)
+type TransactionState (planned, approved, applying, applied, pending_confirm, committed, rolled_back, failed)
+type Transaction (confirm_deadline: ?string, id: string, plan_id: string, restore_point: string, started_at: string, state: TransactionState)
+type HistoryEntry (actor: string, plugin: string, result: string, seq: int, transaction: ?string, ts: string)
+type Event (app: ?string, data: ?object, kind: string, severity: Severity, source: string, ts: string, untrusted: ?object)
+type FirewallNetwork (kind: string, name: string, recommended: string, warning: ?string)
+type FirewallPort (port: int, proto: string)
+type FirewallState (active: ?bool, backend: string, listening: []FirewallPort, networks: []FirewallNetwork, other: []string, ports: []FirewallPort, services: []string, zone: ?string)
+type MonitorStatus (reason: ?string, running: bool)
+type AppEntry (connections: int, destinations: int, exe_path: ?string, first_seen: string, id: string, key: string, kind: string, last_seen: string, mode: string, package: ?string)
+type AppDestination (count: int, destination: string, first_seen: string, last_seen: string, port: int, resolved: bool)
+type Prompt (address: string, app: string, created: string, destination: string, exe_path: ?string, expires: string, id: string, kind: string, port: int)
+type ProposalStatus (pending, approved, rejected, expired)
+type Proposal (client: string, created_at: string, decided_at: ?string, id: string, justification: string, may_affect_keys: []string, patch: object, plan_id: string, plugin: string, preview: []OpPreview, requires_confirm: bool, reversible: Reversible, risk: ?[]RiskFlag, status: ProposalStatus)
+
+# Client-facing API. Subscribe is called with "more": true for streaming.
+method GetInfo() -> (info: Info)
+method GetPosture() -> (posture: Posture)
+method ListPlugins() -> (plugins: []PluginInfo)
+method SetPluginEnabled(id: string, enabled: bool) -> (plan: ?Plan)
+method GetPlugin(id: string) -> (plugin: PluginInfo, manifest: object)
+method RunChecks(plugin: ?string) -> (findings: []Finding)
+method ListFindings(plugin: ?string, min_severity: ?Severity) -> (findings: []Finding)
+method GetConfig(plugin: string) -> (effective: object, layers: object, locks: []string)
+method PlanChange(plugin: string, patch: object) -> (plan: Plan)
+method Apply(plan_id: string, confirm_timeout_s: ?int) -> (transaction: Transaction)
+method Confirm(transaction_id: string) -> ()
+method Rollback(target: string) -> (transaction: Transaction)
+method History(limit: ?int, before: ?int) -> (entries: []HistoryEntry)
+method Subscribe(sources: ?[]string) -> (event: Event)
+method ListProposals(status: ?string) -> (proposals: []Proposal)
+method CreateProposal(plugin: string, patch: object, justification: string, client: ?string) -> (proposal: Proposal)
+method DecideProposal(id: string, decision: string, patch: ?object) -> (transaction: ?Transaction)
+
+# Added in v1 (additive): audit chain validation and event history.
+method ListAudit(limit: ?int) -> (entries: []HistoryEntry)
+method AuditVerify() -> (valid: bool, entries: int, reason: ?string)
+method RecentEvents(limit: ?int) -> (events: []Event)
+
+# Added in v1 (additive): per-app traffic from the connection monitor.
+method ListApps() -> (monitor: MonitorStatus, apps: []AppEntry)
+method SetAppMode(app: string, mode: string) -> ()
+method SetDefaultMode(mode: string) -> ()
+method ListPrompts() -> (prompts: []Prompt)
+method AnswerPrompt(id: string, decision: string, scope: string) -> ()
+method GetAppDestinations(app: string) -> (destinations: []AppDestination)
+
+# Added in v1 (additive): the inbound firewall, as read from the manager.
+method GetFirewall() -> (firewall: FirewallState)
+
+error PermissionDenied (action: string)
+error NotFound (kind: string, id: string)
+error Locked (keys: []string, source: string)
+error PlanExpired (plan_id: string)
+error PlanStale (plan_id: string)
+error Conflict (reason: string)
+error InvalidArgument (field: string, reason: string)
+```
+
+## com.ibexwall.Plugin
+
+```text
+interface com.ibexwall.Plugin
+
+
+# Plugin-side interface; ops/objects are validated against plugin.toml
+# privileges by the core (Op travels as JSON Schema, see spec/schemas).
+method Describe() -> (manifest: object, api: int)
+method Check(config: object) -> (findings: []object, results: []object)
+method Plan(config: object, previous: ?object) -> (ops: []object, notes: []string, may_affect_keys: []string)
+method Verify(transaction_id: string, ops: []object) -> (ok: bool, details: []string)
+method Monitor() -> (event: object)
+method Reconcile(desired: object) -> (applied: bool, details: []string)
+```
+
+## com.ibexwall.Policy
+
+```text
+interface com.ibexwall.Policy
+
+
+# Managed-mode policy provider contract; access is restricted to the
+# principal authorized for com.ibexwall.policy.provider.
+method ApplyBundle(bundle: object) -> (version: int, locks: []string)
+method GetEffective() -> (config: object, locks: []string, sources: [string]string)
+method BuildReport(kind: string) -> (report: object)
+method UseBreakGlass(code: string) -> (unlocked: []string, expires_at: string)
+
+error InvalidSignature (key_id: string)
+error Expired (expires_at: string)
+error VersionRollback (current: int, offered: int)
+```
