@@ -10,7 +10,7 @@
 The IbexWall documentation, <https://docs.ibexwall.com>: getting started, the
 concepts (plans and rollback, plugins, privacy, the security model), the guides
 (hardening, firewall and apps, secure DNS, connecting an AI, the command line,
-uninstalling, troubleshooting), the reference and the decision records. Built
+uninstalling, troubleshooting) and the reference. Built
 with [Astro Starlight](https://starlight.astro.build).
 
 ## Build
@@ -25,7 +25,7 @@ pnpm preview
 (found next to this one, or at `IBEXWALL_APP`): the plugin catalog with each
 plugin's permissions and sandbox, the command line (from a built `ibexctl`, so
 set `IBEXCTL` if needed), the varlink interfaces, the JSON schemas, the MCP
-tools, the decision records and the security documents. The result is
+tools and the security documents. The result is
 committed: CI regenerates and fails if it differs.
 
 ## Translating

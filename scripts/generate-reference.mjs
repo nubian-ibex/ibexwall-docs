@@ -5,7 +5,7 @@
 // Writes the reference pages from the app repository, so the reference is the
 // code and cannot drift from it: the plugin catalog (permissions, sandbox,
 // risks, in every language), the command line, the varlink interfaces, the JSON
-// schemas, the MCP tools, the decisions and the security documents.
+// schemas, the MCP tools and the security documents.
 //
 // The app repository is found next to this one, or at IBEXWALL_APP. The
 // command line is read from a built `ibexctl` (IBEXCTL, or the app's
@@ -243,16 +243,4 @@ copyDoc('docs/systemd-security.md', 'systemd-security.md', 'systemd sandbox scor
 copyDoc('docs/release.md', 'release-verification.md', 'Releases and how to check them', 'What a release holds and how to verify it.', 8);
 copyDoc('docs/capabilities-matrix.md', 'capabilities.md', 'Capabilities matrix', 'The capabilities each component needs and why.', 9);
 
-// The decisions.
-
-const adrs = readdirSync(join(app, 'docs/adr')).filter((f) => f.endsWith('.md')).sort();
-let index = 'The architecture decision records of IbexWall: the choice, the options and the reasons.\n\n';
-for (const file of adrs) {
-  const text = readFileSync(join(app, 'docs/adr', file), 'utf8').replace(/<!--[\s\S]*?-->\n?/g, '');
-  const title = /^# (.*)$/m.exec(text)?.[1] ?? file;
-  const slug = file.replace(/\.md$/, '');
-  write('en', `decisions/${slug}.md`, { title: title.replace(/^ADR-\d+:\s*/, `${slug.slice(0, 4)}: `), description: `Decision record ${slug.slice(0, 4)}.`, sidebar: { order: Number(slug.slice(0, 4)) } }, text.replace(/^# .*\n+/, ''));
-  index += `- [${title}](/reference/decisions/${slug}/)\n`;
-}
-write('en', 'decisions/index.md', { title: 'Decisions', description: 'Architecture decision records.', sidebar: { order: 10 } }, index);
-console.log(`reference: ${manifests.length} plugins x ${LOCALES.length} languages, ${tools.length} tools, ${adrs.length} decisions${cli ? ', the command line' : ''}`);
+console.log(`reference: ${manifests.length} plugins x ${LOCALES.length} languages, ${tools.length} tools${cli ? ', the command line' : ''}`);
