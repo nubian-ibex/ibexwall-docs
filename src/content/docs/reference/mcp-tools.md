@@ -16,3 +16,5 @@ The tools the assistant server (`ibexwall-mcp`) offers. None of them applies a c
 - `dry_run`: Show what a patch would do, operation by operation, without applying or queueing anything.
 - `propose_change`: Put a change in the queue for a person to review. Nothing is applied: a human approves or rejects it in IbexWall, every applied change is snapshotted and can be rolled back, and changes that cannot be rolled back are refused.
 - `list_proposals`: Your own proposals and their state (read only).
+- `list_compliance`: The compliance profiles the machine can be evaluated against (read only).
+- `get_compliance`: One profile's controls and their states: compliant, non-compliant, not-assessed, needs-attestation, not-applicable or excepted (read only).

@@ -133,6 +133,48 @@ One application seen by the monitor (counts and times only).
 
 </details>
 
+## Attestation
+
+A person's attestation that an organizational control holds.
+
+<details><summary>JSON Schema</summary>
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A person's attestation that an organizational control holds.",
+  "properties": {
+    "control_id": {
+      "type": "string"
+    },
+    "expires_at": {
+      "description": "Unix seconds; `None` means it never expires.",
+      "format": "int64",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "owner": {
+      "type": "string"
+    },
+    "statement": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "control_id",
+    "owner",
+    "statement"
+  ],
+  "title": "Attestation",
+  "type": "object"
+}
+```
+
+</details>
+
 ## CheckOutcome
 
 Outcome of one check. `NotApplicable` checks are left out of the score
@@ -410,6 +452,458 @@ One evaluated check; the score is computed from these (spec §5.4).
 
 </details>
 
+## ComplianceProfile
+
+A framework's profile: a named set of controls.
+
+<details><summary>JSON Schema</summary>
+
+```json
+{
+  "$defs": {
+    "Control": {
+      "additionalProperties": false,
+      "description": "One control: what it requires, and for an automated one the check ids\nthat prove it. `references` cite the framework clause or article.",
+      "properties": {
+        "checks": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "control_id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/ControlKind"
+        },
+        "references": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ProfileReference"
+          },
+          "type": "array"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "control_id",
+        "title",
+        "kind"
+      ],
+      "type": "object"
+    },
+    "ControlKind": {
+      "description": "Whether a control is decided by the machine or by a person.",
+      "enum": [
+        "automated",
+        "attestation"
+      ],
+      "type": "string"
+    },
+    "ProfileReference": {
+      "additionalProperties": false,
+      "description": "A citation for a control: the clause or article id, its URL and the\ndate it was consulted. The shared `Reference` type (framework, id) is\nfor findings; profiles carry their own shape.",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "url",
+        "date"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A framework's profile: a named set of controls.",
+  "properties": {
+    "controls": {
+      "items": {
+        "$ref": "#/$defs/Control"
+      },
+      "type": "array"
+    },
+    "framework": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "framework",
+    "version",
+    "controls"
+  ],
+  "title": "ComplianceProfile",
+  "type": "object"
+}
+```
+
+</details>
+
+## ComplianceReport
+
+The whole evaluation of one profile.
+
+<details><summary>JSON Schema</summary>
+
+```json
+{
+  "$defs": {
+    "CheckOutcome": {
+      "description": "Outcome of one check. `NotApplicable` checks are left out of the score\ndenominator; `NotAssessed` checks cannot be evaluated yet (e.g. they\nneed a plugin that ships later) and are shown honestly, never as passes.",
+      "enum": [
+        "pass",
+        "fail",
+        "not_applicable",
+        "not_assessed"
+      ],
+      "type": "string"
+    },
+    "CheckResult": {
+      "additionalProperties": false,
+      "description": "One evaluated check; the score is computed from these (spec §5.4).",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "outcome": {
+          "$ref": "#/$defs/CheckOutcome"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        }
+      },
+      "required": [
+        "id",
+        "severity",
+        "outcome"
+      ],
+      "type": "object"
+    },
+    "ComplianceStatus": {
+      "description": "The state of one control after evaluation. `NotAssessed` is never a\npass: a control with a missing, stale or unknown check lands here, so\na report that cannot prove a control never claims it.",
+      "enum": [
+        "compliant",
+        "non_compliant",
+        "not_assessed",
+        "needs_attestation",
+        "not_applicable",
+        "excepted"
+      ],
+      "type": "string"
+    },
+    "ControlResult": {
+      "additionalProperties": false,
+      "description": "One control's verdict and the checks that decided it.",
+      "properties": {
+        "checks": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CheckResult"
+          },
+          "type": "array"
+        },
+        "control_id": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/ComplianceStatus"
+        },
+        "title": {
+          "description": "The control's own wording, so the report stands alone.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "control_id",
+        "title",
+        "status"
+      ],
+      "type": "object"
+    },
+    "Severity": {
+      "description": "Finding severity. Weights drive the posture score (spec §5.4).",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "The whole evaluation of one profile.",
+  "properties": {
+    "controls": {
+      "items": {
+        "$ref": "#/$defs/ControlResult"
+      },
+      "type": "array"
+    },
+    "evaluated_at": {
+      "type": "string"
+    },
+    "framework": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "framework",
+    "version",
+    "evaluated_at",
+    "controls"
+  ],
+  "title": "ComplianceReport",
+  "type": "object"
+}
+```
+
+</details>
+
+## ComplianceStatus
+
+The state of one control after evaluation. `NotAssessed` is never a
+
+<details><summary>JSON Schema</summary>
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The state of one control after evaluation. `NotAssessed` is never a\npass: a control with a missing, stale or unknown check lands here, so\na report that cannot prove a control never claims it.",
+  "enum": [
+    "compliant",
+    "non_compliant",
+    "not_assessed",
+    "needs_attestation",
+    "not_applicable",
+    "excepted"
+  ],
+  "title": "ComplianceStatus",
+  "type": "string"
+}
+```
+
+</details>
+
+## Control
+
+One control: what it requires, and for an automated one the check ids
+
+<details><summary>JSON Schema</summary>
+
+```json
+{
+  "$defs": {
+    "ControlKind": {
+      "description": "Whether a control is decided by the machine or by a person.",
+      "enum": [
+        "automated",
+        "attestation"
+      ],
+      "type": "string"
+    },
+    "ProfileReference": {
+      "additionalProperties": false,
+      "description": "A citation for a control: the clause or article id, its URL and the\ndate it was consulted. The shared `Reference` type (framework, id) is\nfor findings; profiles carry their own shape.",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "url",
+        "date"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "One control: what it requires, and for an automated one the check ids\nthat prove it. `references` cite the framework clause or article.",
+  "properties": {
+    "checks": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "control_id": {
+      "type": "string"
+    },
+    "kind": {
+      "$ref": "#/$defs/ControlKind"
+    },
+    "references": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ProfileReference"
+      },
+      "type": "array"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "control_id",
+    "title",
+    "kind"
+  ],
+  "title": "Control",
+  "type": "object"
+}
+```
+
+</details>
+
+## ControlKind
+
+Whether a control is decided by the machine or by a person.
+
+<details><summary>JSON Schema</summary>
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Whether a control is decided by the machine or by a person.",
+  "enum": [
+    "automated",
+    "attestation"
+  ],
+  "title": "ControlKind",
+  "type": "string"
+}
+```
+
+</details>
+
+## ControlResult
+
+One control's verdict and the checks that decided it.
+
+<details><summary>JSON Schema</summary>
+
+```json
+{
+  "$defs": {
+    "CheckOutcome": {
+      "description": "Outcome of one check. `NotApplicable` checks are left out of the score\ndenominator; `NotAssessed` checks cannot be evaluated yet (e.g. they\nneed a plugin that ships later) and are shown honestly, never as passes.",
+      "enum": [
+        "pass",
+        "fail",
+        "not_applicable",
+        "not_assessed"
+      ],
+      "type": "string"
+    },
+    "CheckResult": {
+      "additionalProperties": false,
+      "description": "One evaluated check; the score is computed from these (spec §5.4).",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "outcome": {
+          "$ref": "#/$defs/CheckOutcome"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        }
+      },
+      "required": [
+        "id",
+        "severity",
+        "outcome"
+      ],
+      "type": "object"
+    },
+    "ComplianceStatus": {
+      "description": "The state of one control after evaluation. `NotAssessed` is never a\npass: a control with a missing, stale or unknown check lands here, so\na report that cannot prove a control never claims it.",
+      "enum": [
+        "compliant",
+        "non_compliant",
+        "not_assessed",
+        "needs_attestation",
+        "not_applicable",
+        "excepted"
+      ],
+      "type": "string"
+    },
+    "Severity": {
+      "description": "Finding severity. Weights drive the posture score (spec §5.4).",
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "One control's verdict and the checks that decided it.",
+  "properties": {
+    "checks": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/CheckResult"
+      },
+      "type": "array"
+    },
+    "control_id": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/ComplianceStatus"
+    },
+    "title": {
+      "description": "The control's own wording, so the report stands alone.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "control_id",
+    "title",
+    "status"
+  ],
+  "title": "ControlResult",
+  "type": "object"
+}
+```
+
+</details>
+
 ## DnsStatus
 
 Secure DNS counters, published by the resolver. Counts only: the
@@ -529,6 +1023,45 @@ Event on the bus. `data` is structured by source; `untrusted` carries
     "severity"
   ],
   "title": "Event",
+  "type": "object"
+}
+```
+
+</details>
+
+## Exception
+
+An accepted risk: overrides a control's state until it expires. Shown
+
+<details><summary>JSON Schema</summary>
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "An accepted risk: overrides a control's state until it expires. Shown\napart and never counted as compliant.",
+  "properties": {
+    "control_id": {
+      "type": "string"
+    },
+    "expires_at": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "justification": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "control_id",
+    "owner",
+    "justification",
+    "expires_at"
+  ],
+  "title": "Exception",
   "type": "object"
 }
 ```
@@ -2334,6 +2867,40 @@ Posture score and per-protection snapshot.
     "open_findings"
   ],
   "title": "Posture",
+  "type": "object"
+}
+```
+
+</details>
+
+## ProfileReference
+
+A citation for a control: the clause or article id, its URL and the
+
+<details><summary>JSON Schema</summary>
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A citation for a control: the clause or article id, its URL and the\ndate it was consulted. The shared `Reference` type (framework, id) is\nfor findings; profiles carry their own shape.",
+  "properties": {
+    "date": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "url",
+    "date"
+  ],
+  "title": "ProfileReference",
   "type": "object"
 }
 ```

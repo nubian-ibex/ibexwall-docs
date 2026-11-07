@@ -64,6 +64,15 @@ method ListAudit(limit: ?int) -> (entries: []HistoryEntry)
 method AuditVerify() -> (valid: bool, entries: int, reason: ?string)
 method RecentEvents(limit: ?int) -> (events: []Event)
 
+# Added in v1 (additive): attestations and accepted-risk exceptions for
+# the compliance controls (F11a). A person records a statement or accepts
+# a risk with an owner and an expiry.
+method SetAttestation(control_id: string, owner: string, statement: string, expires_at: ?int) -> ()
+method SetException(control_id: string, owner: string, justification: string, expires_at: int) -> ()
+method ListComplianceProfiles() -> (profiles: []object)
+method GetCompliance(profile: string) -> (report: object)
+method ExportCompliance(profile: string, format: string) -> (format: string, export: object)
+
 # Added in v1 (additive): per-app traffic from the connection monitor.
 method ListApps() -> (monitor: MonitorStatus, apps: []AppEntry)
 method SetAppMode(app: string, mode: string) -> ()

@@ -15,23 +15,24 @@ IbexWall control CLI
 Usage: ibexctl [OPTIONS] <COMMAND>
 
 Commands:
-  status     Daemon and host information
-  plugins    Plugin management
-  check      Run checks (all enabled plugins, or one)
-  findings   List findings
-  plan       Simulate a change: build a previewable plan from a patch
-  apply      Apply a plan
-  confirm    Confirm a pending transaction
-  rollback   Roll back a transaction
-  history    Recent transactions
-  audit      Audit chain operations
-  events     Live events
-  apps       Applications seen by the connection monitor
-  mcp        Connect an AI assistant (MCP) to IbexWall
-  proposals  Changes an assistant proposed, waiting for a human decision
-  prompts    Connections held in Ask mode, waiting for an answer
-  firewall   The inbound firewall: what is allowed in, and changes to it
-  tui        Interactive terminal UI
+  status      Daemon and host information
+  plugins     Plugin management
+  check       Run checks (all enabled plugins, or one)
+  findings    List findings
+  plan        Simulate a change: build a previewable plan from a patch
+  apply       Apply a plan
+  confirm     Confirm a pending transaction
+  rollback    Roll back a transaction
+  history     Recent transactions
+  audit       Audit chain operations
+  events      Live events
+  apps        Applications seen by the connection monitor
+  mcp         Connect an AI assistant (MCP) to IbexWall
+  proposals   Changes an assistant proposed, waiting for a human decision
+  prompts     Connections held in Ask mode, waiting for an answer
+  firewall    The inbound firewall: what is allowed in, and changes to it
+  compliance  Compliance against a named framework
+  tui         Interactive terminal UI
 
 Options:
       --json     Emit machine-readable JSON for every command
@@ -585,6 +586,66 @@ Options:
       --json  Emit machine-readable JSON for every command
       --yes   Apply it now (otherwise only the plan is shown)
   -h, --help  Print help
+```
+
+### `ibexctl compliance`
+
+```text
+Compliance against a named framework
+
+Usage: ibexctl compliance [OPTIONS] <COMMAND>
+
+Commands:
+  list    List the profiles the machine can be evaluated against
+  show    Show one profile's controls and their states
+  export  Export one profile as a signed report
+
+Options:
+      --json  Emit machine-readable JSON for every command
+  -h, --help  Print help
+```
+
+#### `ibexctl compliance list`
+
+```text
+List the profiles the machine can be evaluated against
+
+Usage: ibexctl compliance list [OPTIONS]
+
+Options:
+      --json  Emit machine-readable JSON for every command
+  -h, --help  Print help
+```
+
+#### `ibexctl compliance show`
+
+```text
+Show one profile's controls and their states
+
+Usage: ibexctl compliance show [OPTIONS] <PROFILE>
+
+Arguments:
+  <PROFILE>  The framework name, e.g. "IbexWall Baseline" or "LGPD"
+
+Options:
+      --json  Emit machine-readable JSON for every command
+  -h, --help  Print help
+```
+
+#### `ibexctl compliance export`
+
+```text
+Export one profile as a signed report
+
+Usage: ibexctl compliance export [OPTIONS] <PROFILE>
+
+Arguments:
+  <PROFILE>  The framework name
+
+Options:
+      --format <FORMAT>  json (signed), csv or oscal [default: json]
+      --json             Emit machine-readable JSON for every command
+  -h, --help             Print help
 ```
 
 ### `ibexctl tui`
