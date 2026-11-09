@@ -13,6 +13,8 @@ The daemon listens on a Unix socket, `/run/ibexwall/core.sock`. Any local user c
 
 An action that needs a password is asked for only when the program calling asks for it. The desktop app always does, so a change shows your desktop's password dialog, and the answer is kept for a few minutes. `ibexctl` does when it runs in a terminal (`--no-ask-password` turns that off). The MCP server never does: a suggestion it leaves still needs a person to approve it in the app. Without a dialog to show, as over SSH, the change answers that a password is needed and nothing happens; use `sudo ibexctl` there.
 
+An administrator can let chosen accounts change IbexWall without typing a password: add them to the `ibexwall-admins` group (`sudo gpasswd -a NAME ibexwall-admins`). A polkit rule gives that group every IbexWall action except the policy provider's. The group ships empty, so nothing changes until someone is added, and removing an account takes the access away.
+
 The polkit actions IbexWall defines are:
 
 - `com.ibexwall.read`: read status, findings and events. Allowed for the active desktop session.
