@@ -18,6 +18,14 @@ The socket should be active. The daemon is started by the socket the first time 
 
 If the message is "Permission needed", your account is not allowed to read this information. Ask an administrator to allow the polkit action named in the message.
 
+## A change asks for a password, or fails without asking
+
+Turning a plugin on, changing the firewall or DNS, and undoing a change need an administrator of the computer. The app shows "Waiting for authorization" and your desktop shows its password dialog; enter your password there. If the dialog is behind another window, look for it in the taskbar.
+
+- "The change was not authorized": the password was wrong, the dialog was closed, or your account is not an administrator. Ask an administrator, or have one type their password.
+- "No password dialog could be shown": no authentication agent runs for your session. That is the case over SSH, on a text console and with some minimal window managers. Run the change with `sudo ibexctl`, or start a polkit agent with your window manager.
+- `ibexctl` prints `AuthenticationRequired`: it was run without a terminal or with `--no-ask-password`. Run it in a terminal, or with `sudo`.
+
 ## A plugin shows an error
 
 A plugin that stops answering is restarted and marked degraded. `ibexctl status` lists what is degraded. Each plugin runs as its own unit:

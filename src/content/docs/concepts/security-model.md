@@ -11,6 +11,8 @@ IbexWall runs a daemon as root, so it is worth knowing exactly what that daemon 
 
 The daemon listens on a Unix socket, `/run/ibexwall/core.sock`. Any local user can connect to it, but every method is checked through polkit, the same system that shows the password prompt in your desktop. If polkit cannot answer, the request is refused.
 
+An action that needs a password is asked for only when the program calling asks for it. The desktop app always does, so a change shows your desktop's password dialog, and the answer is kept for a few minutes. `ibexctl` does when it runs in a terminal (`--no-ask-password` turns that off). The MCP server never does: a suggestion it leaves still needs a person to approve it in the app. Without a dialog to show, as over SSH, the change answers that a password is needed and nothing happens; use `sudo ibexctl` there.
+
 The polkit actions IbexWall defines are:
 
 - `com.ibexwall.read`: read status, findings and events. Allowed for the active desktop session.
