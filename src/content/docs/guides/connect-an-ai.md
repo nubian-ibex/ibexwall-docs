@@ -12,7 +12,7 @@ This needs the `ibexwall-mcp` package.
 ## Connect a program
 
 1. Open **Connect an AI**.
-2. Pick the program you use: Claude Code, OpenCode or VS Code.
+2. Pick the program you use from the cards: Claude Code, OpenCode, VS Code, Cursor or Gemini CLI. Each card says whether it can also reach a server on another machine; Gemini CLI cannot, because its settings file has no documented way to keep the token out of the file.
 3. Copy the text shown and put it in the file the screen names for that program.
 4. Choose what it may do.
 
@@ -28,7 +28,7 @@ The user who runs the program must be in the `ibexwall-assistants` group, then l
 sudo usermod -aG ibexwall-assistants $USER
 ```
 
-On the command line, `ibexctl mcp config claude-code` prints the snippet and the matching stanza for `/etc/ibexwall/mcp.toml`. The other names are `opencode` and `vscode`. Add `--with-proposals` to include suggestions. Printing needs no daemon and changes nothing.
+On the command line, `ibexctl mcp config claude-code` prints the snippet and the matching stanza for `/etc/ibexwall/mcp.toml`. The other names are `opencode`, `vscode`, `cursor` and `gemini-cli`. Cursor reads `~/.cursor/mcp.json` (or `.cursor/mcp.json` in a project) and Gemini CLI reads `~/.gemini/settings.json`. Add `--with-proposals` to include suggestions. Printing needs no daemon and changes nothing.
 
 ## What an assistant sees
 
