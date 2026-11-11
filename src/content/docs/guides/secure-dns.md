@@ -30,7 +30,7 @@ DNS over TLS is recommended. DNS over HTTPS, DNS over HTTPS with HTTP/3 and DNS 
 
 ### Blocking
 
-Pick a block list, or None: HaGeZi (Light, Normal, Pro, Pro++, Ultimate), OISD (small, big) or StevenBlack unified hosts. HaGeZi Pro is the one its authors recommend; Ultimate may break sites. Lists are downloaded over HTTPS, checked name by name and replaced in one step, so a download that fails or is empty never replaces a working list.
+Pick a block list, or None: HaGeZi (Light, Normal, Pro, Pro++, Ultimate), OISD (small, big) or StevenBlack unified hosts. HaGeZi Pro is the one its authors recommend; Ultimate may break sites. The screen starts from what is applied now, so after a change you see the provider and list you chose. Lists are kept in `/var/lib/ibexwall-dns/blocklists` and downloaded over HTTPS, checked name by name and replaced in one step, so a download that fails or is empty never replaces a working list.
 
 ### Refuse unencrypted DNS
 

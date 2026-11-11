@@ -13,6 +13,12 @@ The Firewall screen works through the firewall your system already uses. If fire
 
 The firewall controls are off at first. The screen says "The firewall controls are off" and a button turns them on. Reading the current state works either way.
 
+### The firewall your system installed is off
+
+Ubuntu ships ufw installed and switched off, and some systems have firewalld installed but disabled. The screen then says "The firewall is off" and offers **Turn on the firewall**. IbexWall turns it on through the manager itself (`ufw enable`, or enabling and starting `firewalld.service`), so `ufw status` and `firewall-cmd --state` agree. First it allows the TCP services listening on every address, so an SSH session keeps working; untick "Keep what is listening reachable" to skip that. You get the usual countdown to keep or undo the change, and an undo turns the manager off again.
+
+From the command line: `ibexctl plan net.firewall --set enable_manager=true`.
+
 ### Basic protection
 
 If nothing is filtering incoming connections, the screen shows "The firewall is off" and offers **Turn on basic protection**. It refuses connections from other computers, except:
@@ -29,6 +35,8 @@ Container and VPN interfaces are left alone. Because this can affect your networ
 Add a port (1 to 65535, TCP or UDP) or a service name (letters, digits, dashes and underscores, for example `http`), and remove them from the lists of allowed ports and services. Each change is a plan you review and can undo.
 
 The screen also shows programs listening on every address, and rules it read but does not edit.
+
+Some systems already allow a whole range. Fedora Workstation's zone, for one, allows ports 1025 to 65535, so a port such as 9099 needs no rule: IbexWall says "already allowed by port 1025-65535/tcp" instead of adding one, and the screen lists the range under rules it does not edit. Ports below 1025 are the ones that need a rule there.
 
 ### Network profiles
 
@@ -48,6 +56,8 @@ ibexctl firewall profile travel --yes
 Without `--yes`, the command shows the plan and applies nothing.
 
 ## Per-program network control
+
+The connection monitor watches which program connects where. It runs after the install. If it is off, the Apps and network screen says "The connection monitor is off" and offers **Turn on the connection monitor** (it asks for your password); `ibexctl apps monitor on` and `ibexctl apps monitor off` do the same. If you turn it off, it stays off after upgrades.
 
 The Apps and network screen lists programs by their first connection and shows where each connects, with counts and times. Each program has a mode:
 

@@ -7,7 +7,9 @@ sidebar:
 
 ## Open the app
 
-Start **IbexWall** from your application menu. The window shows a sidebar with Overview, Plugins, System posture, History and Settings, plus the screens for Secure DNS, Apps and network, Firewall, Hardening, the AI assistant and Connect an AI. A line at the bottom of the sidebar reads "Protection active" when the service answers.
+Start **IbexWall** from your application menu. The window shows a sidebar with Overview, Plugins, System posture, History and Settings, plus the screens for Secure DNS, Apps and network, Firewall, Hardening, the AI assistant and Connect an AI. The line at the bottom of the sidebar stays in view and tells you the state of the service: "Protection active" when the system posture is good, "Service running" when it is not yet, and so on down to "Service not responding".
+
+The first time you open the app, a short welcome explains how the password prompt works, runs a first check, offers to turn on the recommended protections with one password, lists the programs some protections still need (with the command to install them) and mentions what changes on a computer your organisation manages. Settings can show it again.
 
 If the window says it cannot reach the IbexWall service, nothing is lost: your protections keep working, the window just cannot read their state. See [Troubleshooting](/guides/troubleshooting/).
 
