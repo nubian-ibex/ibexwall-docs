@@ -15,7 +15,7 @@ The firewall controls are off at first. The screen says "The firewall controls a
 
 ### The firewall your system installed is off
 
-Ubuntu ships ufw installed and switched off, and some systems have firewalld installed but disabled. The screen then says "The firewall is off" and offers **Turn on the firewall**. IbexWall turns it on through the manager itself (`ufw enable`, or enabling and starting `firewalld.service`), so `ufw status` and `firewall-cmd --state` agree. First it allows the TCP services listening on every address, so an SSH session keeps working; untick "Keep what is listening reachable" to skip that. You get the usual countdown to keep or undo the change, and an undo turns the manager off again.
+Ubuntu ships ufw installed and switched off, and some systems have firewalld installed but disabled. The screen then says "The firewall is off", with a switch that shows the real state of the firewall. IbexWall turns it on through the manager itself (`ufw enable`, or enabling and starting `firewalld.service`), so `ufw status` and `firewall-cmd --state` agree. First it allows the TCP services listening on every address, so an SSH session keeps working; untick "Keep what is listening reachable" to skip that. You get the usual countdown to keep or undo the change, and an undo turns the manager off again.
 
 From the command line: `ibexctl plan net.firewall --set enable_manager=true`.
 
@@ -89,3 +89,5 @@ Ask and Block need the connection monitor to be running. Ask cannot hold a conta
 The session agent, installed with the desktop package, shows the question as a notification on your desktop. It also tells you about a captive portal, as described in [Secure DNS](/guides/secure-dns/).
 
 For Flatpak apps, **Block network access** uses a reversible Flatpak override. It works for Flatpak apps installed for the whole system, not for single-user installs.
+
+The switch always follows the firewall itself. While it is off, the port, service and profile controls are hidden, so nothing can be changed without a firewall running. Turning it on or off, like every change, takes two steps: **Apply** shows exactly what would change (nothing changes yet), and **Confirm** carries it out. Turning a running ufw or firewalld off is a change you can undo from History, which turns it back on. IbexWall's own nftables protection has no off switch: undo the change that turned it on.
