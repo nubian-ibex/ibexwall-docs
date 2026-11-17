@@ -160,6 +160,7 @@ Steuert, welche Verbindungen diesen Computer erreichen können, über die Firewa
 - **Standardmäßig an**: nein
 - **Darf lesen**: `/etc/firewalld`, `/usr/lib/firewalld`, `/etc/ufw`, `/etc/ibexwall/firewall`, `/run/systemd/units`, `/proc/net`, `/etc/os-release`, `/usr/sbin`, `/usr/bin`
 - **Darf schreiben**: `/etc/ibexwall/firewall`
+- **Darf diese Dienste verwalten**: `firewalld.service`
 - **Darf die Firewall ändern**: `net_firewall` `firewalld`, `ufw`
 - **Läuft als**: ein dynamischer Benutzer, **Fähigkeiten**: `CAP_DAC_READ_SEARCH`, **Netzwerkzugriff des Plugins**: nein
 - **Kann beeinflussen**: network
@@ -305,7 +306,7 @@ Zeigt, welche der empfohlenen Härtungseinstellungen dieser Rechner bereits hat.
 
 - **ID**: `system.hardening`, **Version**: 0.1.0, **Kategorie**: system, **Arten**: Prüfung, **Herkunft**: official
 - **Standardmäßig an**: ja
-- **Darf lesen**: `/proc/sys`, `/proc/mounts`, `/etc/modprobe.d`, `/usr/lib/modprobe.d`
+- **Darf lesen**: `/proc/sys`, `/proc/1/mountinfo`, `/etc/modprobe.d`, `/usr/lib/modprobe.d`
 - **Läuft als**: ein dynamischer Benutzer, **Fähigkeiten**: keine, **Netzwerkzugriff des Plugins**: nein
 
 ## Kernel-Module {#system-modules}
@@ -388,7 +389,7 @@ Prüft die Einstellungen des SSH-Servers (root-Anmeldung, leere Passwörter, Wei
 
 - **ID**: `system.ssh`, **Version**: 0.1.0, **Kategorie**: system, **Arten**: Prüfung, Steuerung, **Herkunft**: official
 - **Standardmäßig an**: ja
-- **Darf lesen**: `/etc/ssh`, `/usr/sbin/sshd`, `/usr/lib/systemd/system`, `/run`
+- **Darf lesen**: `/etc/ssh`, `/etc/passwd`, `/home`, `/root`, `/usr/sbin/sshd`, `/usr/lib/systemd/system`, `/run`
 - **Darf schreiben**: `/etc/ssh/sshd_config.d`
 - **Darf diese Dienste verwalten**: `sshd.service`, `ssh.service`
 - **Darf den Kern bitten auszuführen**: `/usr/sbin/sshd -t`

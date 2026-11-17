@@ -17,7 +17,9 @@ The firewall controls are off at first. The screen says "The firewall controls a
 
 Ubuntu ships ufw installed and switched off, and some systems have firewalld installed but disabled. The screen then says "The firewall is off", with a switch that shows the real state of the firewall. IbexWall turns it on through the manager itself (`ufw enable`, or enabling and starting `firewalld.service`), so `ufw status` and `firewall-cmd --state` agree. First it allows the TCP services listening on every address, so an SSH session keeps working; untick "Keep what is listening reachable" to skip that. You get the usual countdown to keep or undo the change, and an undo turns the manager off again.
 
-From the command line: `ibexctl plan net.firewall --set enable_manager=true`.
+From the command line: `ibexctl plan net.firewall --set enable_manager=true`. To turn a running ufw or firewalld off, plan `disable_manager=true`; asking for both in one plan is refused, and so is turning off IbexWall's own protection (undo the change that turned it on).
+
+Turning a firewall on keeps every TCP service that listens on a non-loopback address, and always the port sshd is configured for, so a remote session keeps working. A plan that also asks for something invalid, such as a port above 65535, fails as a whole instead of turning the firewall on and dropping the request.
 
 ### Basic protection
 
@@ -35,6 +37,8 @@ Container and VPN interfaces are left alone. Because this can affect your networ
 Add a port (1 to 65535, TCP or UDP) or a service name (letters, digits, dashes and underscores, for example `http`), and remove them from the lists of allowed ports and services. Each change is a plan you review and can undo.
 
 The screen also shows programs listening on every address, and rules it read but does not edit.
+
+Removing the port or the service your SSH server uses, or switching to the Travel profile, would cut new SSH logins, so the plan is refused. If you really mean it, add `confirm_ssh_cut=true` to the plan, for example `ibexctl plan net.firewall --set remove=22/tcp --set confirm_ssh_cut=true`; the usual countdown still undoes it if you lose the session.
 
 Some systems already allow a whole range. Fedora Workstation's zone, for one, allows ports 1025 to 65535, so a port such as 9099 needs no rule: IbexWall says "already allowed by port 1025-65535/tcp" instead of adding one, and the screen lists the range under rules it does not edit. Ports below 1025 are the ones that need a rule there.
 

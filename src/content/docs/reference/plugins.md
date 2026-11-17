@@ -160,6 +160,7 @@ Controls which connections can reach this computer, through the firewall your sy
 - **On by default**: no
 - **May read**: `/etc/firewalld`, `/usr/lib/firewalld`, `/etc/ufw`, `/etc/ibexwall/firewall`, `/run/systemd/units`, `/proc/net`, `/etc/os-release`, `/usr/sbin`, `/usr/bin`
 - **May write**: `/etc/ibexwall/firewall`
+- **May manage these services**: `firewalld.service`
 - **May change the firewall**: `net_firewall` `firewalld`, `ufw`
 - **Runs as**: a dynamic user, **Capabilities**: `CAP_DAC_READ_SEARCH`, **Network access from the plugin**: no
 - **Can affect**: network
@@ -305,7 +306,7 @@ Tells which of the recommended hardening settings this machine already has. It c
 
 - **ID**: `system.hardening`, **Version**: 0.1.0, **Category**: system, **Kinds**: check, **Origin**: official
 - **On by default**: yes
-- **May read**: `/proc/sys`, `/proc/mounts`, `/etc/modprobe.d`, `/usr/lib/modprobe.d`
+- **May read**: `/proc/sys`, `/proc/1/mountinfo`, `/etc/modprobe.d`, `/usr/lib/modprobe.d`
 - **Runs as**: a dynamic user, **Capabilities**: none, **Network access from the plugin**: no
 
 ## Kernel modules {#system-modules}
@@ -388,7 +389,7 @@ Checks the SSH server's settings (root login, empty passwords, forwarding) and t
 
 - **ID**: `system.ssh`, **Version**: 0.1.0, **Category**: system, **Kinds**: check, control, **Origin**: official
 - **On by default**: yes
-- **May read**: `/etc/ssh`, `/usr/sbin/sshd`, `/usr/lib/systemd/system`, `/run`
+- **May read**: `/etc/ssh`, `/etc/passwd`, `/home`, `/root`, `/usr/sbin/sshd`, `/usr/lib/systemd/system`, `/run`
 - **May write**: `/etc/ssh/sshd_config.d`
 - **May manage these services**: `sshd.service`, `ssh.service`
 - **May ask the core to run**: `/usr/sbin/sshd -t`

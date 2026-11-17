@@ -52,6 +52,10 @@ When you open the screen, IbexWall ticks the recommended settings that are still
 
 Settings that belong to different plugins are applied plugin by plugin. If one plugin's change does not stay, the screen says "The change for ... did not stay, so the rest was not applied."
 
+## Blocks that something is using
+
+Blocking the network file systems, the rare file systems or Bluetooth is refused while something depends on it: an entry in `/etc/fstab` (one marked `noauto` does not count), a file system mounted now, or a connected Bluetooth keyboard or mouse. Blocking an NFS module while `/home` is an NFS mount would stop the next boot at the emergency shell, so the plan names what uses it instead. If you are sure, plan it with `confirm_in_use=true`, for example `ibexctl plan system.modules --set 'block=["bluetooth"]' --set confirm_in_use=true`.
+
 ## Undo
 
 **Undo all** reverts everything from that apply. You can also undo a single change from [History](/concepts/plans-and-rollback/).

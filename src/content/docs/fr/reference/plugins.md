@@ -160,6 +160,7 @@ Contrôle quelles connexions peuvent joindre cet ordinateur, via le pare-feu que
 - **Activé par défaut**: non
 - **Peut lire**: `/etc/firewalld`, `/usr/lib/firewalld`, `/etc/ufw`, `/etc/ibexwall/firewall`, `/run/systemd/units`, `/proc/net`, `/etc/os-release`, `/usr/sbin`, `/usr/bin`
 - **Peut écrire**: `/etc/ibexwall/firewall`
+- **Peut gérer ces services**: `firewalld.service`
 - **Peut modifier le pare-feu**: `net_firewall` `firewalld`, `ufw`
 - **S’exécute en tant que**: un utilisateur dynamique, **Capacités**: `CAP_DAC_READ_SEARCH`, **Accès réseau du plugin**: non
 - **Peut affecter**: network
@@ -305,7 +306,7 @@ Indique lesquels des réglages de durcissement recommandés cette machine a déj
 
 - **ID**: `system.hardening`, **Version**: 0.1.0, **Catégorie**: system, **Types**: vérification, **Origine**: official
 - **Activé par défaut**: oui
-- **Peut lire**: `/proc/sys`, `/proc/mounts`, `/etc/modprobe.d`, `/usr/lib/modprobe.d`
+- **Peut lire**: `/proc/sys`, `/proc/1/mountinfo`, `/etc/modprobe.d`, `/usr/lib/modprobe.d`
 - **S’exécute en tant que**: un utilisateur dynamique, **Capacités**: aucune, **Accès réseau du plugin**: non
 
 ## Modules du noyau {#system-modules}
@@ -388,7 +389,7 @@ Vérifie les réglages du serveur SSH (connexion root, mots de passe vides, redi
 
 - **ID**: `system.ssh`, **Version**: 0.1.0, **Catégorie**: system, **Types**: vérification, contrôle, **Origine**: official
 - **Activé par défaut**: oui
-- **Peut lire**: `/etc/ssh`, `/usr/sbin/sshd`, `/usr/lib/systemd/system`, `/run`
+- **Peut lire**: `/etc/ssh`, `/etc/passwd`, `/home`, `/root`, `/usr/sbin/sshd`, `/usr/lib/systemd/system`, `/run`
 - **Peut écrire**: `/etc/ssh/sshd_config.d`
 - **Peut gérer ces services**: `sshd.service`, `ssh.service`
 - **Peut demander au cœur d’exécuter**: `/usr/sbin/sshd -t`

@@ -160,6 +160,7 @@ Controla quais conexões podem chegar a este computador, pelo firewall que o seu
 - **Ligado por padrão**: não
 - **Pode ler**: `/etc/firewalld`, `/usr/lib/firewalld`, `/etc/ufw`, `/etc/ibexwall/firewall`, `/run/systemd/units`, `/proc/net`, `/etc/os-release`, `/usr/sbin`, `/usr/bin`
 - **Pode escrever**: `/etc/ibexwall/firewall`
+- **Pode gerenciar estes serviços**: `firewalld.service`
 - **Pode alterar o firewall**: `net_firewall` `firewalld`, `ufw`
 - **Executa como**: um usuário dinâmico, **Capacidades**: `CAP_DAC_READ_SEARCH`, **Acesso à rede pelo plugin**: não
 - **Pode afetar**: network
@@ -305,7 +306,7 @@ Diz quais das configurações de endurecimento recomendadas esta máquina já te
 
 - **ID**: `system.hardening`, **Versão**: 0.1.0, **Categoria**: system, **Tipos**: verificação, **Origem**: official
 - **Ligado por padrão**: sim
-- **Pode ler**: `/proc/sys`, `/proc/mounts`, `/etc/modprobe.d`, `/usr/lib/modprobe.d`
+- **Pode ler**: `/proc/sys`, `/proc/1/mountinfo`, `/etc/modprobe.d`, `/usr/lib/modprobe.d`
 - **Executa como**: um usuário dinâmico, **Capacidades**: nenhuma, **Acesso à rede pelo plugin**: não
 
 ## Módulos do kernel {#system-modules}
@@ -388,7 +389,7 @@ Verifica as configurações do servidor SSH (login de root, senhas vazias, encam
 
 - **ID**: `system.ssh`, **Versão**: 0.1.0, **Categoria**: system, **Tipos**: verificação, controle, **Origem**: official
 - **Ligado por padrão**: sim
-- **Pode ler**: `/etc/ssh`, `/usr/sbin/sshd`, `/usr/lib/systemd/system`, `/run`
+- **Pode ler**: `/etc/ssh`, `/etc/passwd`, `/home`, `/root`, `/usr/sbin/sshd`, `/usr/lib/systemd/system`, `/run`
 - **Pode escrever**: `/etc/ssh/sshd_config.d`
 - **Pode gerenciar estes serviços**: `sshd.service`, `ssh.service`
 - **Pode pedir ao núcleo que execute**: `/usr/sbin/sshd -t`

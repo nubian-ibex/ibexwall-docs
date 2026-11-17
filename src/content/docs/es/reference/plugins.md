@@ -160,6 +160,7 @@ Controla qué conexiones pueden llegar a este equipo, a través del cortafuegos 
 - **Activado por defecto**: no
 - **Puede leer**: `/etc/firewalld`, `/usr/lib/firewalld`, `/etc/ufw`, `/etc/ibexwall/firewall`, `/run/systemd/units`, `/proc/net`, `/etc/os-release`, `/usr/sbin`, `/usr/bin`
 - **Puede escribir**: `/etc/ibexwall/firewall`
+- **Puede gestionar estos servicios**: `firewalld.service`
 - **Puede cambiar el cortafuegos**: `net_firewall` `firewalld`, `ufw`
 - **Se ejecuta como**: un usuario dinámico, **Capacidades**: `CAP_DAC_READ_SEARCH`, **Acceso a la red del plugin**: no
 - **Puede afectar**: network
@@ -305,7 +306,7 @@ Indica cuáles de los ajustes de refuerzo recomendados ya tiene esta máquina. N
 
 - **ID**: `system.hardening`, **Versión**: 0.1.0, **Categoría**: system, **Tipos**: comprobación, **Origen**: official
 - **Activado por defecto**: sí
-- **Puede leer**: `/proc/sys`, `/proc/mounts`, `/etc/modprobe.d`, `/usr/lib/modprobe.d`
+- **Puede leer**: `/proc/sys`, `/proc/1/mountinfo`, `/etc/modprobe.d`, `/usr/lib/modprobe.d`
 - **Se ejecuta como**: un usuario dinámico, **Capacidades**: ninguna, **Acceso a la red del plugin**: no
 
 ## Módulos del kernel {#system-modules}
@@ -388,7 +389,7 @@ Comprueba los ajustes del servidor SSH (inicio de sesión de root, contraseñas 
 
 - **ID**: `system.ssh`, **Versión**: 0.1.0, **Categoría**: system, **Tipos**: comprobación, control, **Origen**: official
 - **Activado por defecto**: sí
-- **Puede leer**: `/etc/ssh`, `/usr/sbin/sshd`, `/usr/lib/systemd/system`, `/run`
+- **Puede leer**: `/etc/ssh`, `/etc/passwd`, `/home`, `/root`, `/usr/sbin/sshd`, `/usr/lib/systemd/system`, `/run`
 - **Puede escribir**: `/etc/ssh/sshd_config.d`
 - **Puede gestionar estos servicios**: `sshd.service`, `ssh.service`
 - **Puede pedir al núcleo que ejecute**: `/usr/sbin/sshd -t`

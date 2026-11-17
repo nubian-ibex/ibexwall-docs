@@ -33,11 +33,13 @@ Commands:
   firewall    The inbound firewall: what is allowed in, and changes to it
   compliance  Compliance against a named framework
   tui         Interactive terminal UI
+  policy      Managed-mode policy management (applies a signed bundle)
 
 Options:
-      --json     Emit machine-readable JSON for every command
-  -h, --help     Print help
-  -V, --version  Print version
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
+  -V, --version          Print version
 ```
 
 ### `ibexctl status`
@@ -48,8 +50,9 @@ Daemon and host information
 Usage: ibexctl status [OPTIONS]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl plugins`
@@ -66,8 +69,9 @@ Commands:
   disable  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl plugins list`
@@ -76,8 +80,9 @@ Options:
 Usage: ibexctl plugins list [OPTIONS]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl plugins info`
@@ -89,8 +94,9 @@ Arguments:
   <ID>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl plugins enable`
@@ -102,8 +108,9 @@ Arguments:
   <ID>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl plugins disable`
@@ -115,8 +122,9 @@ Arguments:
   <ID>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl check`
@@ -130,8 +138,9 @@ Arguments:
   [PLUGIN]  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl findings`
@@ -144,6 +153,7 @@ Usage: ibexctl findings [OPTIONS]
 Options:
       --json             Emit machine-readable JSON for every command
       --plugin <PLUGIN>  
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
   -h, --help             Print help
 ```
 
@@ -160,6 +170,7 @@ Arguments:
 Options:
       --json                 Emit machine-readable JSON for every command
       --set <KEY=VALUE>      Setting for the plugin config, e.g. --set template=dropin
+      --no-ask-password      Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
       --set-file <KEY=PATH>  Setting whose value is a file's text, e.g. --set-file profile=lab.conf
   -h, --help                 Print help
 ```
@@ -175,9 +186,14 @@ Arguments:
   <PLAN_ID>  
 
 Options:
-      --confirm-timeout <CONFIRM_TIMEOUT>  Confirmation window in seconds for network-risk plans
-      --json                               Emit machine-readable JSON for every command
-  -h, --help                               Print help
+      --confirm-timeout <CONFIRM_TIMEOUT>
+          Confirmation window in seconds for network-risk plans
+      --json
+          Emit machine-readable JSON for every command
+      --no-ask-password
+          Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help
+          Print help
 ```
 
 ### `ibexctl confirm`
@@ -191,8 +207,9 @@ Arguments:
   <TRANSACTION_ID>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl rollback`
@@ -206,8 +223,9 @@ Arguments:
   <TARGET>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl history`
@@ -218,8 +236,9 @@ Recent transactions
 Usage: ibexctl history [OPTIONS]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl audit`
@@ -233,8 +252,9 @@ Commands:
   verify  Validate the audit hash chain
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl audit verify`
@@ -245,8 +265,9 @@ Validate the audit hash chain
 Usage: ibexctl audit verify [OPTIONS]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl events`
@@ -257,9 +278,10 @@ Live events
 Usage: ibexctl events [OPTIONS]
 
 Options:
-      --follow  
-      --json    Emit machine-readable JSON for every command
-  -h, --help    Print help
+      --follow           
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl apps`
@@ -273,11 +295,13 @@ Commands:
   list     Every application seen, most recently active first
   info     One application and where it connects (key from `apps list`)
   default  What apps nobody decided about may do: allow, monitor or ask
+  monitor  Turn the connection monitor on or off (on at once and at boot)
   set      Choose what an application may do on the network
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl apps list`
@@ -288,8 +312,9 @@ Every application seen, most recently active first
 Usage: ibexctl apps list [OPTIONS]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl apps info`
@@ -303,8 +328,9 @@ Arguments:
   <APP>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl apps default`
@@ -318,8 +344,25 @@ Arguments:
   <MODE>  [possible values: allow, monitor, ask]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
+```
+
+#### `ibexctl apps monitor`
+
+```text
+Turn the connection monitor on or off (on at once and at boot)
+
+Usage: ibexctl apps monitor [OPTIONS] <STATE>
+
+Arguments:
+  <STATE>  [possible values: on, off]
+
+Options:
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl apps set`
@@ -334,8 +377,9 @@ Arguments:
   <MODE>  [possible values: allow, monitor, ask, block]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl mcp`
@@ -350,8 +394,9 @@ Commands:
   token   Make an access token for an assistant on another machine and plan the change that lets it in. The token is shown once; only its hash is sent
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl mcp config`
@@ -362,11 +407,12 @@ What to paste to connect a client, and the matching mcp.toml stanza
 Usage: ibexctl mcp config [OPTIONS] <CLIENT>
 
 Arguments:
-  <CLIENT>  [possible values: claude-code, opencode, vscode]
+  <CLIENT>  [possible values: claude-code, opencode, vscode, cursor, gemini-cli]
 
 Options:
       --json                         Emit machine-readable JSON for every command
       --with-proposals               Show the stanza with change proposals allowed
+      --no-ask-password              Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
       --url <https://HOST:PORT/mcp>  Reach `ibexwall-mcp --http` on another machine (https only)
   -h, --help                         Print help
 ```
@@ -381,6 +427,7 @@ Usage: ibexctl mcp token [OPTIONS] --name <NAME>
 Options:
       --json               Emit machine-readable JSON for every command
       --name <NAME>        What the token is for, e.g. "work laptop"
+      --no-ask-password    Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
       --preset <PRESET>    What the assistant may do: read, plan or propose [default: read]
       --client <CLIENT>    The client entry it belongs to (default: `remote-ID`)
       --id <ID>            Three to sixteen lowercase letters or digits (default: random)
@@ -403,8 +450,9 @@ Commands:
   reject   Reject: nothing is applied
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl proposals list`
@@ -417,6 +465,7 @@ Usage: ibexctl proposals list [OPTIONS]
 Options:
       --json             Emit machine-readable JSON for every command
       --status <STATUS>  [possible values: pending, approved, rejected, expired]
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
   -h, --help             Print help
 ```
 
@@ -431,8 +480,9 @@ Arguments:
   <ID>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl proposals approve`
@@ -446,8 +496,9 @@ Arguments:
   <ID>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl proposals reject`
@@ -461,8 +512,9 @@ Arguments:
   <ID>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl prompts`
@@ -477,8 +529,9 @@ Commands:
   answer  Answer one: allow or block, for this connection, this destination or the whole app
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl prompts list`
@@ -489,8 +542,9 @@ The open questions
 Usage: ibexctl prompts list [OPTIONS]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl prompts answer`
@@ -505,9 +559,10 @@ Arguments:
   <DECISION>  [possible values: allow, block]
 
 Options:
-      --json           Emit machine-readable JSON for every command
-      --scope <SCOPE>  [default: once] [possible values: once, destination, always]
-  -h, --help           Print help
+      --json             Emit machine-readable JSON for every command
+      --scope <SCOPE>    [default: once] [possible values: once, destination, always]
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl firewall`
@@ -524,8 +579,9 @@ Commands:
   deny     Stop letting a port or a service in
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl firewall status`
@@ -536,8 +592,9 @@ What the firewall allows today
 Usage: ibexctl firewall status [OPTIONS]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl firewall allow`
@@ -551,9 +608,10 @@ Arguments:
   <TARGET>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-      --yes   Apply it now (otherwise only the plan is shown)
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --yes              Apply it now (otherwise only the plan is shown)
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl firewall profile`
@@ -567,9 +625,10 @@ Arguments:
   [NAME]  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-      --yes   Apply it now (otherwise only the plan is shown)
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --yes              Apply it now (otherwise only the plan is shown)
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl firewall deny`
@@ -583,9 +642,10 @@ Arguments:
   <TARGET>  
 
 Options:
-      --json  Emit machine-readable JSON for every command
-      --yes   Apply it now (otherwise only the plan is shown)
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --yes              Apply it now (otherwise only the plan is shown)
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 ### `ibexctl compliance`
@@ -601,8 +661,9 @@ Commands:
   export  Export one profile as a signed report
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl compliance list`
@@ -613,8 +674,9 @@ List the profiles the machine can be evaluated against
 Usage: ibexctl compliance list [OPTIONS]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl compliance show`
@@ -628,8 +690,9 @@ Arguments:
   <PROFILE>  The framework name, e.g. "IbexWall Baseline" or "LGPD"
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
 
 #### `ibexctl compliance export`
@@ -645,6 +708,7 @@ Arguments:
 Options:
       --format <FORMAT>  json (signed), csv or oscal [default: json]
       --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
   -h, --help             Print help
 ```
 
@@ -656,6 +720,39 @@ Interactive terminal UI
 Usage: ibexctl tui [OPTIONS]
 
 Options:
-      --json  Emit machine-readable JSON for every command
-  -h, --help  Print help
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
+```
+
+### `ibexctl policy`
+
+```text
+Managed-mode policy management (applies a signed bundle)
+
+Usage: ibexctl policy [OPTIONS] <COMMAND>
+
+Commands:
+  apply-bundle  Apply a signed policy bundle (GitOps / Ansible path)
+
+Options:
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
+```
+
+#### `ibexctl policy apply-bundle`
+
+```text
+Apply a signed policy bundle (GitOps / Ansible path)
+
+Usage: ibexctl policy apply-bundle [OPTIONS] <FILE>
+
+Arguments:
+  <FILE>  Path to the signed policy bundle JSON
+
+Options:
+      --json             Emit machine-readable JSON for every command
+      --no-ask-password  Never ask for a password; a change that needs one fails instead. Without it, ibexctl lets the daemon ask through the desktop session's authentication agent when stdin is a terminal
+  -h, --help             Print help
 ```
