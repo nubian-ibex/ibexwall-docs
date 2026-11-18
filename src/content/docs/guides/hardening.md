@@ -56,6 +56,10 @@ Settings that belong to different plugins are applied plugin by plugin. If one p
 
 Blocking the network file systems, the rare file systems or Bluetooth is refused while something depends on it: an entry in `/etc/fstab` (one marked `noauto` does not count), a file system mounted now, or a connected Bluetooth keyboard or mouse. Blocking an NFS module while `/home` is an NFS mount would stop the next boot at the emergency shell, so the plan names what uses it instead. If you are sure, plan it with `confirm_in_use=true`, for example `ibexctl plan system.modules --set 'block=["bluetooth"]' --set confirm_in_use=true`.
 
+## Turning SSH passwords off
+
+`ibexctl plan system.ssh --set password_auth=false` is refused unless some account that can sign in has an authorized key, because without one you could not log in again. It also turns off keyboard-interactive sign-in, which would still ask for the password. On Ubuntu and Debian, AppArmor keeps the plugin from reading `~/.ssh`, so it cannot see your keys: check by hand that a key works, then add `--set confirm_keys=true`.
+
 ## Undo
 
 **Undo all** reverts everything from that apply. You can also undo a single change from [History](/concepts/plans-and-rollback/).
