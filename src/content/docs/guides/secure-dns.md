@@ -11,7 +11,7 @@ Secure DNS works with systemd-resolved. On other setups the screen says the syst
 
 ## Turn it on
 
-Open **Secure DNS**. The status reads "Secure DNS is off". Switch the plugin on at the top of the screen, choose your settings and review the plan; nothing changes until you apply. The change can affect your network, so you get a confirmation countdown.
+Open **Secure DNS**. The status reads "Secure DNS is off". Switch the plugin on at the top of the screen, then choose your settings in the tabs: **Provider**, **Block lists**, **Protection** and **Own servers**. A dot on a tab means it holds a change you have not applied. Changes in every tab add up in the bar at the bottom ("2 changes ready"); press **Review and apply** to see the plan, apply it and keep it. Nothing changes until you apply, and the change can affect your network, so you get a countdown to keep or undo it.
 
 When it works, the status reads "Your DNS lookups are encrypted".
 

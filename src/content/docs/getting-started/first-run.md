@@ -35,10 +35,10 @@ Open **System posture** to see every check, what it means and what it is worth. 
 
 Pick a small, low-risk recommendation. As an example, take a setting from [Hardening](/guides/hardening/).
 
-1. **Plan.** Choose the change. IbexWall builds a plan and shows it to you. Nothing has changed yet.
-2. **Review.** Read the exact files, units or firewall rules the plan touches, the preview of the difference, and "What this can affect". A restore point is created before anything changes, and the plan says so. A plan expires after a while, shown as "This preview expires".
-3. **Apply.** Press **Apply changes**. The system asks for your password through the usual desktop prompt, because applying needs an administrator.
-4. **Confirm.** If the change could affect your network, IbexWall asks "Keep the changes?" and counts down. Press **Keep changes** to keep them. If you do nothing, they are undone automatically.
+1. **Choose.** Tick the settings you want, or pick the change on its screen. A bar at the bottom of the window shows how many changes are ready, for example "3 changes ready". Nothing has changed yet.
+2. **Review.** Press **Review and apply**. A panel opens on the right with three numbered steps: Review, Apply and Keep. Review lists the exact files, units or firewall rules the change touches, the preview of the difference, and "What this can affect". A restore point is created before anything changes. Press **Close** to leave without changing anything.
+3. **Apply.** Press **Apply**. The system asks for your password through the usual desktop prompt, because applying needs an administrator.
+4. **Keep.** If the change could affect your network, the panel counts down. Press **Keep changes** to keep them. If you do nothing, they are undone automatically.
 5. **Undo.** Open **History**. Each change is listed with who approved it and what happened. Press **Undo this change** to put things back.
 
 You can try the same steps on the command line. This example opens a port on a computer that already runs firewalld or ufw:

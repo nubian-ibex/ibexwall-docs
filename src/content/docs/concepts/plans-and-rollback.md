@@ -9,7 +9,7 @@ Every change IbexWall makes goes through the same steps. This is what lets you t
 
 ## The steps
 
-1. **Plan.** A plugin describes a change, and the core turns it into a plan: the exact files, systemd units, kernel settings or firewall rules, a preview of the difference, and what could break. A plan changes nothing. In the command line this is `ibexctl plan`, and the screens call it Simulate or Review.
+1. **Plan.** A plugin describes a change, and the core turns it into a plan: the exact files, systemd units, kernel settings or firewall rules, a preview of the difference, and what could break. A plan changes nothing. In the command line this is `ibexctl plan`, and the app shows it as the first step, Review, of the review panel.
 2. **Snapshot.** Before applying, the core saves what the change is about to touch. The screens call this a restore point.
 3. **Approval.** You approve the plan. Applying needs administrator rights, so the desktop asks for your password.
 4. **Apply.** Only the core, the daemon running as root, applies the change. Plugins never do.
