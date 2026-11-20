@@ -330,7 +330,7 @@ Verifica se /tmp e /dev/shm não executam programas nem guardam arquivos setuid,
 
 - **ID**: `system.mounts`, **Versão**: 0.1.0, **Categoria**: system, **Tipos**: verificação, controle, **Origem**: official
 - **Ligado por padrão**: sim
-- **Pode ler**: `/proc/mounts`, `/etc/systemd/system`, `/usr/lib/systemd/system`
+- **Pode ler**: `/proc/1/mountinfo`, `/etc/systemd/system`, `/usr/lib/systemd/system`
 - **Pode escrever**: `/etc/systemd/system/tmp.mount.d`, `/etc/systemd/system/dev-shm.mount.d`
 - **Executa como**: um usuário dinâmico, **Capacidades**: nenhuma, **Acesso à rede pelo plugin**: não
 - **Pode afetar**: boot

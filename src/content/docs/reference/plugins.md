@@ -330,7 +330,7 @@ Checks that /tmp and /dev/shm cannot run programs or hold setuid files, and sets
 
 - **ID**: `system.mounts`, **Version**: 0.1.0, **Category**: system, **Kinds**: check, control, **Origin**: official
 - **On by default**: yes
-- **May read**: `/proc/mounts`, `/etc/systemd/system`, `/usr/lib/systemd/system`
+- **May read**: `/proc/1/mountinfo`, `/etc/systemd/system`, `/usr/lib/systemd/system`
 - **May write**: `/etc/systemd/system/tmp.mount.d`, `/etc/systemd/system/dev-shm.mount.d`
 - **Runs as**: a dynamic user, **Capabilities**: none, **Network access from the plugin**: no
 - **Can affect**: boot

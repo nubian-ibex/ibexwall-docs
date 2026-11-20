@@ -7,6 +7,10 @@ sidebar:
 
 Every change IbexWall makes goes through the same steps. This is what lets you try a setting without worrying about being stuck with it.
 
+## Restore points
+
+A restore point is a name you give the current state: everything IbexWall changes after it can be undone in one go, newest first. Create one before trying something big, with `ibexctl restore-point create NAME`, and go back with `ibexctl restore-point go NAME` (the app has the same card on History). Going back shows which changes it will undo before it does, and a failure part-way stops and names the change, leaving the rest for a retry.
+
 ## The steps
 
 1. **Plan.** A plugin describes a change, and the core turns it into a plan: the exact files, systemd units, kernel settings or firewall rules, a preview of the difference, and what could break. A plan changes nothing. In the command line this is `ibexctl plan`, and the app shows it as the first step, Review, of the review panel.

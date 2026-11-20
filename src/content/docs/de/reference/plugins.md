@@ -330,7 +330,7 @@ Prüft, ob /tmp und /dev/shm keine Programme ausführen oder setuid-Dateien enth
 
 - **ID**: `system.mounts`, **Version**: 0.1.0, **Kategorie**: system, **Arten**: Prüfung, Steuerung, **Herkunft**: official
 - **Standardmäßig an**: ja
-- **Darf lesen**: `/proc/mounts`, `/etc/systemd/system`, `/usr/lib/systemd/system`
+- **Darf lesen**: `/proc/1/mountinfo`, `/etc/systemd/system`, `/usr/lib/systemd/system`
 - **Darf schreiben**: `/etc/systemd/system/tmp.mount.d`, `/etc/systemd/system/dev-shm.mount.d`
 - **Läuft als**: ein dynamischer Benutzer, **Fähigkeiten**: keine, **Netzwerkzugriff des Plugins**: nein
 - **Kann beeinflussen**: boot

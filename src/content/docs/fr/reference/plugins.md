@@ -330,7 +330,7 @@ Vérifie que /tmp et /dev/shm ne peuvent ni exécuter de programmes ni contenir 
 
 - **ID**: `system.mounts`, **Version**: 0.1.0, **Catégorie**: system, **Types**: vérification, contrôle, **Origine**: official
 - **Activé par défaut**: oui
-- **Peut lire**: `/proc/mounts`, `/etc/systemd/system`, `/usr/lib/systemd/system`
+- **Peut lire**: `/proc/1/mountinfo`, `/etc/systemd/system`, `/usr/lib/systemd/system`
 - **Peut écrire**: `/etc/systemd/system/tmp.mount.d`, `/etc/systemd/system/dev-shm.mount.d`
 - **S’exécute en tant que**: un utilisateur dynamique, **Capacités**: aucune, **Accès réseau du plugin**: non
 - **Peut affecter**: boot
